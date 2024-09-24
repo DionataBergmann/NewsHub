@@ -1,11 +1,10 @@
-import React from 'react';
+import { Box } from '@chakra-ui/react';
+import Header from '../components/organisms/Header';
 
-const HomePage = () => {
+export default function Home() {
   return (
-    <div>
-      <h1>Bem-vindo ao NewsHub</h1>
-    </div>
+    <Box>
+      <Header />
+    </Box>
   );
-};
-
-export default HomePage;
+}
