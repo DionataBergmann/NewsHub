@@ -1,7 +1,11 @@
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-const AudioPlayerComponent = ({ src }) => {
+interface AudioPlayerProps {
+  src: string; 
+}
+
+const AudioPlayerComponent = ({ src } : AudioPlayerProps) => {
   return (
     <AudioPlayer
       src={src}
