@@ -1,4 +1,4 @@
-import { Box, Input, Button, Flex, Spacer, InputGroup, InputRightElement, PopoverTrigger, Popover, PopoverCloseButton, PopoverHeader, PopoverContent, PopoverArrow, PopoverBody } from '@chakra-ui/react';
+import { Box, Input, Button, Flex, Spacer, InputGroup, InputRightElement, PopoverTrigger, Popover, PopoverHeader, PopoverContent, PopoverArrow } from '@chakra-ui/react';
 import { AiFillStar, AiOutlineSearch } from 'react-icons/ai';
 import { useState } from 'react';
 import AudioPlayer from '../AudioPlayer/index';
