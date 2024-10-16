@@ -1,4 +1,6 @@
+import CategoryCarousel from '@/components/organisms/CategoryCarousel';
 import Header from '@/components/organisms/Header';
+import NewsList from '@/components/organisms/NewsList';
 import NewsLayout from '@/components/templates/NewsLayout';
 import { getGeneralNews, getNewsByCategory, searchNews } from '@/services/newsService';
 import { useEffect, useState } from 'react';
@@ -52,6 +54,9 @@ export default function Home() {
 
       <NewsLayout selectedCategory={selectedCategory} news={news} />
 
+      <CategoryCarousel onSelectCategory={handleCategoryChange} onSearch={handleSearch} />
+
+      <NewsList news={newsByCategory} />
     </>
   );
 }
