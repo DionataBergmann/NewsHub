@@ -84,6 +84,4 @@ export const searchNews = async (query: string) => {
     throw error;
   }
 };
-    throw error;
-  }
-};
+ 
