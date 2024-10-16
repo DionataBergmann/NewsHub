@@ -1,7 +1,17 @@
-import axios from 'axios';
+import axios from "axios";
 
 const API_URL = process.env.NEXT_PUBLIC_NEWS_API_URL;
 const API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY;
+
+interface Article {
+  title: string;
+  description: string;
+  author: string;
+  content: string;
+  urlToImage: string;
+  publishedAt: string;
+}
+
 export const getGeneralNews = async () => {
   try {
     const response = await axios.get(`${API_URL}/top-headlines`, {
@@ -12,7 +22,7 @@ export const getGeneralNews = async () => {
     });
 
     const filteredArticles = response.data.articles.filter(
-      (article) =>
+      (article: Article) =>
         article.author &&
         article.title &&
         article.description &&
@@ -37,7 +47,7 @@ export const getNewsByCategory = async (category: string) => {
     });
 
     const filteredArticles = response.data.articles.filter(
-      (article) =>
+      (article: Article) =>
         article.author &&
         article.title &&
         article.description &&
@@ -61,7 +71,7 @@ export const searchNews = async (query: string) => {
     });
 
     const filteredArticles = response.data.articles.filter(
-      (article) =>
+      (article: Article) =>
         article.author &&
         article.title &&
         article.description &&
