@@ -26,7 +26,11 @@ const NewsLayout = ({ news }: { selectedCategory: string; news: NewsItem[] }) =>
   const mainNews = news[0] || { title: 'Main News', url: '#', urlToImage: '', publishedAt: '' };
   const secondaryNews = news[1] || { title: 'Secondary News', url: '#', urlToImage: '', publishedAt: '' };
 
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  };
 
   return (
     <Grid templateColumns={['1fr']} gap={4} p={4} maxW="80%" mx="auto">
