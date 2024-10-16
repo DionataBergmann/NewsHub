@@ -88,7 +88,4 @@ export const searchNews = async (query: string): Promise<Article[]> => {
     throw error;
   }
 };
-    throw error;
-  }
-};
- 
+  
