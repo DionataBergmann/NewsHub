@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 interface NewsItem {
   title: string;
-  url: string;
+  url?: string;
   urlToImage: string;
   publishedAt: string;
 }

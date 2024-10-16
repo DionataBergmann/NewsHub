@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_NEWS_API_URL;
-const API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY;
+const API_URL = process.env.NEXT_PUBLIC_NEWS_API_URL as string;
+const API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY as string;
 
 interface Article {
   title: string;
@@ -12,9 +12,13 @@ interface Article {
   publishedAt: string;
 }
 
-export const getGeneralNews = async () => {
+interface NewsAPIResponse {
+  articles: Article[];
+}
+
+export const getGeneralNews = async (): Promise<Article[]> => {
   try {
-    const response = await axios.get(`${API_URL}/top-headlines`, {
+    const response = await axios.get<NewsAPIResponse>(`${API_URL}/top-headlines`, {
       params: {
         country: 'us',
         apiKey: API_KEY,
@@ -31,14 +35,14 @@ export const getGeneralNews = async () => {
 
     return filteredArticles;
   } catch (error) {
-    console.error('Erro ao buscar notícias:', error);
+    console.error('Erro ao buscar notícias:', (error as Error).message);
     throw error;
   }
 };
 
-export const getNewsByCategory = async (category: string) => {
+export const getNewsByCategory = async (category: string): Promise<Article[]> => {
   try {
-    const response = await axios.get(`${API_URL}/top-headlines`, {
+    const response = await axios.get<NewsAPIResponse>(`${API_URL}/top-headlines`, {
       params: {
         country: 'us',
         category: category || 'General',
@@ -56,14 +60,14 @@ export const getNewsByCategory = async (category: string) => {
 
     return filteredArticles;
   } catch (error) {
-    console.error(`Erro ao buscar notícias da categoria ${category}:`, error);
+    console.error(`Erro ao buscar notícias da categoria ${category}:`, (error as Error).message);
     throw error;
   }
 };
 
-export const searchNews = async (query: string) => {
+export const searchNews = async (query: string): Promise<Article[]> => {
   try {
-    const response = await axios.get(`${API_URL}/everything`, {
+    const response = await axios.get<NewsAPIResponse>(`${API_URL}/everything`, {
       params: {
         q: query,
         apiKey: API_KEY,
@@ -80,7 +84,10 @@ export const searchNews = async (query: string) => {
 
     return filteredArticles;
   } catch (error) {
-    console.error(`Erro ao buscar notícias sobre: ${query}`, error);
+    console.error(`Erro ao buscar notícias sobre: ${query}`, (error as Error).message);
+    throw error;
+  }
+};
     throw error;
   }
 };
