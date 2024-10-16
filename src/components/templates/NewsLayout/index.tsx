@@ -9,7 +9,7 @@ interface NewsItem {
   publishedAt: string;
 }
 
-const NewsLayout = ({ selectedCategory, news }: { selectedCategory: string; news: NewsItem[] }) => {
+const NewsLayout = ({ news }: { selectedCategory: string; news: NewsItem[] }) => {
   const [favorites, setFavorites] = useState<NewsItem[]>([]);
 
   useEffect(() => {

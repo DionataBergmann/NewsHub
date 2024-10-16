@@ -47,7 +47,7 @@ const FavoriteButton = ({ newsItem, size }: FavoriteButtonProps) => {
   return (
     <IconButton
       aria-label="Favorite"
-      size={size ? '28px' : null}
+      size={size ? '28px' : undefined} 
       icon={isFavorited ? <AiFillStar size={size ? size : 24} /> : <AiOutlineStar size={size ? size : 24} />}
       color={isFavorited ? 'yellow' : 'gray'}
       onClick={toggleFavorite}
