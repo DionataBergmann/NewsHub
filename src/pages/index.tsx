@@ -1,3 +1,4 @@
+// @ts-ignore
 import CategoryCarousel from '@/components/organisms/CategoryCarousel';
 import Header from '@/components/organisms/Header';
 import NewsList from '@/components/organisms/NewsList';
