@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Box, Input, InputGroup, InputRightElement, Text, Flex, Button } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import customTheme from '@/theme';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 interface Props {
