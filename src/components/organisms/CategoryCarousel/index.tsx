@@ -34,7 +34,7 @@ const CategoryCarousel = ({ onSelectCategory, onSearch }: Props) => {
         {categories.map((category, index) => (
           <SwiperSlide key={index} style={{ width: 'auto' }}>
             <Box
-              bg={selectedCategory === category ? customTheme.colors.yellow : 'white'}
+              bg={selectedCategory === category ? 'yellow' : 'white'}
               p={2}
               borderRadius="full"
               textAlign="center"
