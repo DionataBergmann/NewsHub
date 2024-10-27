@@ -1,6 +1,6 @@
 import Header from '@/components/organisms/Header';
 import NewsLayout from '@/components/templates/NewsLayout';
-import { getGeneralNews, getNewsByCategory, searchNews } from '@/services/newsService';
+import { getGeneralNews } from '@/services/newsService'; 
 import { useEffect, useState } from 'react';
 
 interface Article {
@@ -14,8 +14,7 @@ interface Article {
 }
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('General');
-  const [news, setNews] = useState<Article[]>([]); 
+  const [news, setNews] = useState<Article[]>([]);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -33,8 +32,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <NewsLayout selectedCategory={selectedCategory} news={news} />
-
+      <NewsLayout selectedCategory="General" news={news} />
     </>
   );
 }
