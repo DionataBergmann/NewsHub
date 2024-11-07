@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY; 
-const forecastUrl = process.env.NEXT_PUBLIC_WEATHER_API_URL;
+const forecastUrl = process.env.NEXT_PUBLIC_WEATHER_API_URL || ''
 
 if (!forecastUrl) {
-  throw new Error('Weather API URL is not defined');
+  console.log('Weather API URL is not defined');
 }
 
 export const getWeatherForecastByCity = async (city: string) => {
