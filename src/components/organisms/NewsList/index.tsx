@@ -3,6 +3,8 @@ import FavoriteButton from '@/components/molecules/FavoriteButton';
 import { Box, Grid, GridItem, Text, Image, Flex, Link, IconButton } from '@chakra-ui/react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import NextLink from 'next/link';
+import WeatherForecastWidget from '../WeatherForecastWidget';
+
 interface NewsItem {
   title: string;
   description: string;
@@ -106,6 +108,14 @@ const NewsList = ({ news }: Props) => {
           </Box>
         </GridItem>
 
+        <GridItem>
+          <Box bg="white" p={4} borderRadius="md" boxShadow="md" _hover={{ boxShadow: 'lg' }}>
+            <Text fontSize="2xl" fontWeight="bold" mb={4} color="gray.600">
+              Weather
+            </Text>
+            <WeatherForecastWidget />
+          </Box>
+        </GridItem>
       </Grid>
     </Box>
   );

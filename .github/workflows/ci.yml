@@ -30,3 +30,9 @@ jobs:
 
       - name: Executar build
         run: yarn build
+        env:
+          NEXT_PUBLIC_NEWS_API_URL: ${{ secrets.NEXT_PUBLIC_NEWS_API_URL }}
+          NEXT_PUBLIC_NEWS_API_KEY: ${{ secrets.NEXT_PUBLIC_NEWS_API_KEY }}
+          NEXT_PUBLIC_WEATHER_API_URL: ${{ secrets.NEXT_PUBLIC_WEATHER_API_URL }}
+          NEXT_PUBLIC_WEATHER_API_KEY: ${{ secrets.NEXT_PUBLIC_WEATHER_API_KEY }}
+          NEXT_PUBLIC_OPENAI_API_KEY: ${{ secrets.NEXT_PUBLIC_OPENAI_API_KEY }}
