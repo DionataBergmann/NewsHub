@@ -17,6 +17,7 @@ import {
   PopoverHeader,
 } from '@chakra-ui/react';
 import { AiFillStar, AiOutlineSearch } from 'react-icons/ai';
+import { searchNews, summarizeNews } from '@/services/newsService';
 import AudioPlayer from '../AudioPlayer';
 import FavoriteNewsItemList from '../FavoriteNewsItemList';
 
@@ -30,6 +31,7 @@ interface FavoriteNewsItem {
 
 const Header = () => {
   const [showAudioPlayer, setShowAudioPlayer] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const [favorites, setFavorites] = useState<FavoriteNewsItem[]>([]);
 
   useEffect(() => {
@@ -39,8 +41,22 @@ const Header = () => {
     }
   }, []);
 
-  const handleGenerateClick = () => {
-    setShowAudioPlayer(showAudioPlayer ? false : true);
+  const handleGenerateClick = async () => {
+    if (inputValue) {
+      setIsLoading(true);
+      try {
+        const articles = await searchNews(inputValue);
+        const descriptions = articles.slice(0, 5).map((article) => article);
+        const aiSummary = await summarizeNews(descriptions);
+
+      } catch (error) {
+        console.error('Error generating news summary:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      console.log('Please enter a topic.');
+    }
   };
 
   return (
@@ -63,6 +79,8 @@ const Header = () => {
               size="md"
               flex="1"
               mr={2}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
             />
             <InputRightElement mr={2}>
               <AiOutlineSearch size="20px" color="gray" />
@@ -72,7 +90,7 @@ const Header = () => {
           <Box ml={0}>
             <Popover trigger="hover" placement="right">
               <PopoverTrigger>
-                <Button borderRadius="full" backgroundColor="white" color="gray.600" onClick={handleGenerateClick}>
+                <Button borderRadius="full" backgroundColor="white" color="gray.600" onClick={handleGenerateClick} disabled={isLoading}>
                   Generate
                 </Button>
               </PopoverTrigger>
