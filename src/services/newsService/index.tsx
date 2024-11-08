@@ -35,7 +35,7 @@ export const getGeneralNews = async (): Promise<Article[]> => {
 
     return filteredArticles;
   } catch (error) {
-    console.error('Erro ao buscar notícias:', (error as Error).message);
+    console.error('Error fetching news:', (error as Error).message);
     throw error;
   }
 };
@@ -60,7 +60,7 @@ export const getNewsByCategory = async (category: string): Promise<Article[]> =>
 
     return filteredArticles;
   } catch (error) {
-    console.error(`Erro ao buscar notícias da categoria ${category}:`, (error as Error).message);
+    console.error(`Error fetching category news ${category}:`, (error as Error).message);
     throw error;
   }
 };
@@ -81,9 +81,14 @@ export const searchNews = async (query: string): Promise<Article[]> => {
         article.description &&
         article.urlToImage
     );
-
+    
     return filteredArticles;
   } catch (error) {
+    console.error(`Error fetching news about: ${query}`, (error as Error).message);
+    throw error;
+  }
+};
+
 export const summarizeNews = async (articles: Article[]): Promise<string> => {
   try {
     const messages = [
@@ -121,7 +126,28 @@ export const summarizeNews = async (articles: Article[]): Promise<string> => {
     throw error;
   }
 };
-    throw error;
+
+export const synthesizeSpeech = async (message: string): Promise<string> => {
+  const input = message;
+  const model = 'tts-1';  
+  const voice = 'alloy'; 
+
+  try {
+    const response = await axios.post(
+      process.env.NEXT_PUBLIC_OPENAI_TTS_URL as string,
+      { input, model, voice },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,  
+          'Content-Type': 'application/json',
+        },
+        responseType: 'blob',  
+      }
+    );
+
+    return URL.createObjectURL(response.data);  
+  } catch (error) {
+    console.error('Error synthesizing speech:', (error as Error).message);
+    throw error; 
   }
 };
-  

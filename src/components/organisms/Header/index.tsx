@@ -15,9 +15,10 @@ import {
   Input,
   InputRightElement,
   PopoverHeader,
+  Spinner,
 } from '@chakra-ui/react';
 import { AiFillStar, AiOutlineSearch } from 'react-icons/ai';
-import { searchNews, summarizeNews } from '@/services/newsService';
+import { searchNews, summarizeNews, synthesizeSpeech } from '@/services/newsService';
 import AudioPlayer from '../AudioPlayer';
 import FavoriteNewsItemList from '../FavoriteNewsItemList';
 
@@ -32,6 +33,8 @@ interface FavoriteNewsItem {
 const Header = () => {
   const [showAudioPlayer, setShowAudioPlayer] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [audioSrc, setAudioSrc] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [favorites, setFavorites] = useState<FavoriteNewsItem[]>([]);
 
   useEffect(() => {
@@ -49,6 +52,9 @@ const Header = () => {
         const descriptions = articles.slice(0, 5).map((article) => article);
         const aiSummary = await summarizeNews(descriptions);
 
+        const audioUrl = await synthesizeSpeech(aiSummary);
+        setAudioSrc(audioUrl);
+        setShowAudioPlayer(true);
       } catch (error) {
         console.error('Error generating news summary:', error);
       } finally {
@@ -61,8 +67,8 @@ const Header = () => {
 
   return (
     <Box as="header" bg="black" p={4} boxShadow="lg" color="white">
-      <Flex align="center" maxW="1200px" mx="auto" px={4} direction={['column', 'column', 'row']}>
-        <Box fontSize={['xl', '2xl']} fontWeight="bold" mb={[4, 0]}>
+      <Flex align="center" maxW="1200px" mx="auto" px={4}>
+        <Box fontSize="2xl" fontWeight="bold" mr={4}>
           NewsHub
         </Box>
 
@@ -96,7 +102,9 @@ const Header = () => {
               </PopoverTrigger>
               <PopoverContent color="black" bg="white" borderColor="gray.200" mt={2}>
                 <PopoverArrow />
-                <PopoverHeader >An audio will be generated using A.I. with a brief summary of the main news of the day based on the entered topic.</PopoverHeader>
+                <PopoverHeader>
+                  An audio will be generated using A.I. with a brief summary of the main news of the day based on the entered topic.
+                </PopoverHeader>
               </PopoverContent>
             </Popover>
           </Box>
@@ -107,9 +115,9 @@ const Header = () => {
         <Box>
           <Popover>
             <PopoverTrigger>
-          <Button leftIcon={<AiFillStar />} bgColor="yellow" variant="solid" borderRadius="md" size="md">
-            Favorites
-          </Button>
+              <Button leftIcon={<AiFillStar />} bgColor="yellow" variant="solid" borderRadius="md" size="md">
+                Favorites
+              </Button>
             </PopoverTrigger>
             <PopoverContent color="black" bg="white" borderColor="gray.200" mt={2} maxW="600px" minW={500}>
               <PopoverArrow />
@@ -126,9 +134,14 @@ const Header = () => {
         </Box>
       </Flex>
 
-      {showAudioPlayer && (
-        <Box mt={0} display="flex" justifyContent="center">
-          <AudioPlayer src="your-audio-file.mp3" />
+      {isLoading ? (
+        <Box display="flex" justifyContent="center" mt={4} mr={125}>
+          <Spinner size="md" />
+          <Text ml={3} fontSize="lg">Generating summary...</Text>
+        </Box>
+      ) : showAudioPlayer && (
+        <Box mt={0} display="flex" justifyContent="center" ml={-8}>
+          <AudioPlayer src={audioSrc} />
         </Box>
       )}
     </Box>
