@@ -14,10 +14,10 @@ import {
   InputGroup,
   Input,
   InputRightElement,
-  Spinner,
   PopoverHeader,
 } from '@chakra-ui/react';
 import { AiFillStar, AiOutlineSearch } from 'react-icons/ai';
+import AudioPlayer from '../AudioPlayer';
 import FavoriteNewsItemList from '../FavoriteNewsItemList';
 
 interface FavoriteNewsItem {
