@@ -1,10 +1,43 @@
-import { Box, Input, Button, Flex, Spacer, InputGroup, InputRightElement, PopoverTrigger, Popover, PopoverHeader, PopoverContent, PopoverArrow } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import {
+  Box,
+  Button,
+  Flex,
+  Spacer,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  Text,
+  InputGroup,
+  Input,
+  InputRightElement,
+  PopoverHeader,
+} from '@chakra-ui/react';
 import { AiFillStar, AiOutlineSearch } from 'react-icons/ai';
-import { useState } from 'react';
-import AudioPlayer from '../AudioPlayer/index';
+import AudioPlayer from '../AudioPlayer';
+import FavoriteNewsItemList from '../FavoriteNewsItemList';
+
+interface FavoriteNewsItem {
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  publishedAt: string;
+}
 
 const Header = () => {
   const [showAudioPlayer, setShowAudioPlayer] = useState(false);
+  const [favorites, setFavorites] = useState<FavoriteNewsItem[]>([]);
+
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem('favorites');
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+  }, []);
 
   const handleGenerateClick = () => {
     setShowAudioPlayer(showAudioPlayer ? false : true);
@@ -53,10 +86,25 @@ const Header = () => {
 
         <Spacer />
 
-        <Box display={['none', 'none', 'block']}>
+        <Box>
+          <Popover>
+            <PopoverTrigger>
           <Button leftIcon={<AiFillStar />} bgColor="yellow" variant="solid" borderRadius="md" size="md">
             Favorites
           </Button>
+            </PopoverTrigger>
+            <PopoverContent color="black" bg="white" borderColor="gray.200" mt={2} maxW="600px" minW={500}>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverBody mt={5}>
+                {favorites.length > 0 ? (
+                  <FavoriteNewsItemList favorites={favorites} /> 
+                ) : (
+                  <Text>No favorited news yet.</Text>
+                )}
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
         </Box>
       </Flex>
 

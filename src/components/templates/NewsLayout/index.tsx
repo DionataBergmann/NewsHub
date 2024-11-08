@@ -1,6 +1,5 @@
 import FavoriteButton from '@/components/molecules/FavoriteButton';
 import { Box, Grid, GridItem, Text, Link } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
 
 interface NewsItem {
   title: string;
@@ -10,18 +9,6 @@ interface NewsItem {
 }
 
 const NewsLayout = ({ news }: { selectedCategory: string; news: NewsItem[] }) => {
-  const [favorites, setFavorites] = useState<NewsItem[]>([]);
-
-  useEffect(() => {
-    const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-  }, [favorites]);
 
   const mainNews = news[0] || { title: 'Main News', url: '#', urlToImage: '', publishedAt: '' };
   const secondaryNews = news[1] || { title: 'Secondary News', url: '#', urlToImage: '', publishedAt: '' };
