@@ -1,4 +1,9 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# News Hub
+
+News Hub is a news portal designed to keep users informed with the latest news in an accessible and engaging way. Built with React and Next.js, the platform integrates public APIs to provide real-time news and weather data. Users can explore news by category, apply filters, and stay updated with current weather forecasts. Leveraging AI through the OpenAI API, NewsHub generates concise summaries of the top five articles in the selected category. These summaries are then converted to audio, allowing users to listen to brief news updates directly on the platform, making it perfect for staying informed anywhere.
+
+# Demo
+[YouTube Video](https://www.youtube.com/watch?v=dVwqEofGZPs&t)
 
 ## Getting Started
 
